@@ -12,7 +12,7 @@ namespace DataBaseSearchTool
     public class DbSearcher:IDisposable
     {
 
-        public SQLiteConnection DbConnection = null;
+        SQLiteConnection DbConnection = null;
 
         const string connectFormat = @"Data Source={0};Version=3;";
         const string selectTableFormat = "select * from {0} where";
@@ -58,7 +58,7 @@ namespace DataBaseSearchTool
                 da.Fill(ds);
             }
 
-            var res = new DbSearchResult() { DbName=entity.Name,DbPath=entity.Path};
+            var res = new DbSearchResult() { Name = entity.Name, FullPath = entity.Path };
             List<DataTable> ts = new List<DataTable>();
             for(int i=0;i<entity.Tables.Count;++i)
             {                
@@ -71,7 +71,6 @@ namespace DataBaseSearchTool
             res.Tables = ts;
             return res;
         }
-
         public void Close()
         {
             if (DbConnection != null) DbConnection.Close();

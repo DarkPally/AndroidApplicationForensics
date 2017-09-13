@@ -12,8 +12,32 @@ namespace DataBaseSearchTool
     {
         static void Main(string[] args)
         {
-            Test();
+            TestFileSearch();
             Console.ReadLine();
+        }
+
+        static void TestFileSearch()
+        {
+            var fs = new FileSearcher();
+            fs.Init(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk");
+            var xx = fs.SearchStr("少");
+            Console.WriteLine(FileHelper.CheckIsSqlite3("F:\\工作项目\\取证软件\\com.dolphin.browser.xf\\app_webview\\WebData"));
+        }
+        static void TestSQlite3Path()
+        {
+            var ll = FileHelper.GetAllSqlite3Paths(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk",true);
+            foreach(var i in ll)
+            {
+                Console.WriteLine(i);
+            }
+        }
+
+        static void TestSQlite3()
+        {
+            Console.WriteLine(FileHelper.CheckIsSqlite3(@"C:\Users\zjf\Desktop\新建文件夹\2074532171filelist.db"));
+            Console.WriteLine(FileHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\databases\browser.db"));
+            Console.WriteLine(FileHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\browser.db-journal"));
+            Console.WriteLine(FileHelper.CheckIsSqlite3("F:\\工作项目\\取证软件\\com.dolphin.browser.xf\\app_webview\\WebData"));
         }
 
         static void Test()
