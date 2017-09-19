@@ -20,8 +20,16 @@ namespace DataBaseSearchTool
         {
             var fs = new FileSearcher();
             fs.Init(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk");
-            var xx = fs.SearchStr("少");
-            Console.WriteLine(FileHelper.CheckIsSqlite3("F:\\工作项目\\取证软件\\com.dolphin.browser.xf\\app_webview\\WebData"));
+            var xx = fs.SearchStrAll("dark");
+            foreach(var it in xx.Results)
+            {
+
+                Console.WriteLine("类型:{0},文件名:{1},表名:{2},字段名:{3}",
+                    it.Type,
+                    it.FileName,
+                    it.TableName,
+                    it.FieldName);
+            }
         }
         static void TestSQlite3Path()
         {

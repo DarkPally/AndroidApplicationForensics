@@ -8,11 +8,13 @@ using System.Data;
 namespace DataBaseSearchTool
 {
     public class DbSearchResult
-    {
+    {        
         public string FullPath { get; set; }
 
         public string RelativePath { get; set; }
         public string Name { get; set; }
+
+        public bool SearchByTableName{ get; set; }
         public List<DataTable> Tables { get; set; }
     }
 }

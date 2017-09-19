@@ -39,5 +39,10 @@ namespace DataBaseSearchTool
                 searchChildDir?SearchOption.AllDirectories:SearchOption.TopDirectoryOnly);
             return thefileInfo.AsParallel().Where(f => CheckIsSqlite3(f.FullName)).Select(f=>f.FullName).ToList();
         }
+
+        static public List<string> GetAllSqlite3Paths(List<string> FilePaths)
+        {
+            return FilePaths.AsParallel().Where(f => CheckIsSqlite3(f)).Select(f => f).ToList();
+        }
     }
 }

@@ -15,7 +15,9 @@ namespace DataBaseSearchTool
         SQLiteConnection DbConnection = null;
 
         const string connectFormat = @"Data Source={0};Version=3;";
-        const string selectTableFormat = "select * from {0} where";
+
+        const string selectTableFormat = "select * from {0}; ";
+        const string selectWhereTableFormat = "select * from {0} where";
         const string whereFormat = " {0} like '%{1}%' ";
         
         DbEntity entity;
@@ -31,12 +33,46 @@ namespace DataBaseSearchTool
 
         }
 
+        public DbSearchResult SearchStrInTableName(string keyStr)
+        {
+            string selectCmd = "";
+            List<string> names=new List<string>();
+            foreach (var t in entity.Tables)
+            {
+                if(t.Name.Contains(keyStr))
+                {
+                    selectCmd += String.Format(selectTableFormat, t.Name);
+                    names.Add(t.Name);
+                }
+            }
+
+
+            DataSet ds = new DataSet(); ;
+            using (SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd, DbConnection))
+            {
+                da.Fill(ds);
+            }
+
+            var res = new DbSearchResult() { 
+                Name = entity.Name,
+                FullPath = entity.Path,
+                SearchByTableName=true
+            };
+            List<DataTable> ts = new List<DataTable>();
+            for (int i = 0; i < ds.Tables.Count; ++i)
+            {
+                ds.Tables[i].TableName = names[i];
+                ts.Add(ds.Tables[i]);
+            }
+            res.Tables = ts;
+            return res;
+        }
         public DbSearchResult SearchStr(string keyStr)
         {
             string selectCmd="";
             foreach (var t in entity.Tables)
             {
-                selectCmd += String.Format(selectTableFormat, t.Name);
+                selectCmd += String.Format(selectWhereTableFormat, t.Name);
                 for (int i = 0; i < t.Fields.Count;++i )
                 {
                     selectCmd += String.Format(whereFormat, t.Fields[i], keyStr);
@@ -58,7 +94,12 @@ namespace DataBaseSearchTool
                 da.Fill(ds);
             }
 
-            var res = new DbSearchResult() { Name = entity.Name, FullPath = entity.Path };
+            var res = new DbSearchResult()
+            {
+                Name = entity.Name,
+                FullPath = entity.Path,
+                SearchByTableName = false
+            };
             List<DataTable> ts = new List<DataTable>();
             for(int i=0;i<entity.Tables.Count;++i)
             {                
