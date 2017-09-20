@@ -25,6 +25,7 @@ namespace DataSearchTool
             Xml,
             DataBase,
         }
+
         protected  DataSourceType sourceType=DataSourceType.None;
         public DataSourceType SourceType { get { return sourceType; } set { sourceType = value; } }
 

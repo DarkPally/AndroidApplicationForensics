@@ -13,7 +13,11 @@ namespace DataSearchTool
         public string RootDirectoryPath { get; set; }
 
         List<string> dbFilePaths;
+        List<string> standardXmlFilePaths;
         List<string> allFilePaths;
+
+        bool hasPreparedXml = false;
+        public List<XmlSearchResultItem> KeyValueItems=new List<XmlSearchResultItem>();
         public void Init(string rootDirectoryPath)
         {
             RootDirectoryPath = rootDirectoryPath;
@@ -22,7 +26,9 @@ namespace DataSearchTool
             FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
             
             allFilePaths = thefileInfo.Select(c => c.FullName).ToList();
-            dbFilePaths = DataSearchHelper.GetAllSqlite3Paths(allFilePaths);
+            dbFilePaths = DataSearchHelper.GetSqlite3Paths(allFilePaths);
+            standardXmlFilePaths = DataSearchHelper.GetStandardXmlPaths(allFilePaths);
+            
         }
         DataSearchResult processResult(DataSearchResult res)
         {
@@ -84,6 +90,25 @@ namespace DataSearchTool
                 }).ToList();
             var temp = new DataSearchResult() { Items = res };
             return processResult(temp);;
+        }
+        public DataSearchResult SearchStrInXml(string keyStr)
+        {
+            if (!hasPreparedXml)
+            {
+                foreach(var it in standardXmlFilePaths)
+                {
+                    var dbs = new XmlSearcher();
+                    dbs.Init(it);
+                    if (dbs.KeyValueItems!=null)
+                    KeyValueItems.AddRange(dbs.KeyValueItems);
+                }
+                hasPreparedXml = true;
+            }
+            var t=new DataSearchResult()
+            {
+                Items = KeyValueItems.AsParallel().Where(c =>c.ElementValue!=null&& c.ElementValue.Contains(keyStr)).Select(c => c as DataSearchResultItem).ToList()
+            };
+            return processResult(t);
         }
         public DataSearchResult SearchStr(string keyStr)
         {

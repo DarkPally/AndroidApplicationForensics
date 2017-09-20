@@ -57,6 +57,7 @@
     <Compile Include="Searcher\File\FileSearchResult.cs" />
     <Compile Include="Searcher\File\FileSearcher.cs" />
     <Compile Include="Searcher\Common\DataSearchHelper.cs" />
+    <Compile Include="Searcher\Xml\XmlSearchResultItem.cs" />
     <Compile Include="Searcher\Xml\XmlSearcher.cs" />
     <Compile Include="Searcher\Xml\XmlHelper.cs" />
   </ItemGroup>

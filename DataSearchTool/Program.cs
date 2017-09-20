@@ -12,10 +12,39 @@ namespace DataSearchTool
     {
         static void Main(string[] args)
         {
-            TestFileSearch();
+            TestXmlSearch();
             Console.ReadLine();
         }
+        static void TestXmlSearch()
+        {
+            DataSearchHelper.CheckIsStandardXml(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk\shared_prefs\51_bs.xml");
+            var fs = new DataSearcher();
+            fs.Init(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk");
+            var xx = fs.SearchStrInXml("15");
+            foreach (var it in xx.Items)
+            {
 
+                Console.WriteLine("类型:{0},文件路径:{1},文件名:{2},键:{3},值:{4}",
+                    it.SourceType,
+                    it.RelativePath,
+                    it.FileName,
+                    (it as XmlSearchResultItem).ElementName,
+                    (it as XmlSearchResultItem).ElementValue);
+            }
+            /*
+            Console.WriteLine("——————————————————————");
+            foreach (var it in fs.KeyValueItems)
+            {
+
+                Console.WriteLine("类型:{0},文件路径:{1},文件名:{2},键:{3},值:{4}",
+                    it.SourceType,
+                    it.RelativePath,
+                    it.FileName,
+                    (it as XmlSearchResultItem).ElementName,
+                    (it as XmlSearchResultItem).ElementValue);
+            }
+             * */
+        }
         static void TestFileSearch()
         {
             var fs = new DataSearcher();
@@ -44,7 +73,7 @@ namespace DataSearchTool
         }
         static void TestSQlite3Path()
         {
-            var ll = DataSearchHelper.GetAllSqlite3Paths(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk",true);
+            var ll = DataSearchHelper.GetSqlite3Paths(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk",true);
             foreach(var i in ll)
             {
                 Console.WriteLine(i);

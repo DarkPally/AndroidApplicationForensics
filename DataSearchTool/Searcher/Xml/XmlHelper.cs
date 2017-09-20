@@ -14,11 +14,11 @@ namespace DataSearchTool
         {
             var basePath = "/" + node.LocalName;
             if (node.ParentNode == null) return basePath;
-            if (node.Attributes.Count>0)
+            if (node.Attributes.Count>0) //一般来说都是name=""
             {
                 return String.Format("{0}[@{1}={2}]", basePath, node.Attributes[0].Name, node.Attributes[0].Value);
             }
-            else
+            else //基本不会运行
             {
                 var t = node.ParentNode.SelectNodes(basePath);
                 if (t.Count == 1) return basePath;
@@ -44,5 +44,7 @@ namespace DataSearchTool
             }
             return path;
         }
+
+        
     }
 }
