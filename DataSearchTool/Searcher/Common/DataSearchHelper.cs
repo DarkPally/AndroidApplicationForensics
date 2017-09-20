@@ -8,7 +8,7 @@ using System.Data;
 using System.IO;
 namespace DataSearchTool
 {
-    public class FileHelper
+    public class DataSearchHelper
     {
         static public bool CheckIsSqlite3(string FilePath)
         {

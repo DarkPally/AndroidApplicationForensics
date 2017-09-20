@@ -18,22 +18,33 @@ namespace DataSearchTool
 
         static void TestFileSearch()
         {
-            var fs = new FileSearcher();
+            var fs = new DataSearcher();
             fs.Init(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk");
-            var xx = fs.SearchStrAll("2074532171");
-            foreach(var it in xx.Results)
+            var xx = fs.SearchStr("少");
+            foreach(var it in xx.Items)
             {
 
-                Console.WriteLine("类型:{0},文件名:{1},表名:{2},字段名:{3}",
-                    it.Type,
+                Console.WriteLine("类型:{0},文件路径:{1},文件名:{2},表名:{3}",
+                    it.SourceType,
+                    it.RelativePath,
                     it.FileName,
-                    it.TableName,
-                    it.FieldName);
+                    it.DataPath);
+                if(it is DbSearchResultItem)
+                {
+                    if(!(it as DbSearchResultItem).ResultInTableName)
+                    {
+                        
+                         foreach(var f in (it as DbSearchResultItem).RelatingFields )
+                         {
+                             Console.WriteLine(f);
+                         }
+                    }
+                }
             }
         }
         static void TestSQlite3Path()
         {
-            var ll = FileHelper.GetAllSqlite3Paths(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk",true);
+            var ll = DataSearchHelper.GetAllSqlite3Paths(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk",true);
             foreach(var i in ll)
             {
                 Console.WriteLine(i);
@@ -42,12 +53,13 @@ namespace DataSearchTool
 
         static void TestSQlite3()
         {
-            Console.WriteLine(FileHelper.CheckIsSqlite3(@"C:\Users\zjf\Desktop\新建文件夹\2074532171filelist.db"));
-            Console.WriteLine(FileHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\databases\browser.db"));
-            Console.WriteLine(FileHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\browser.db-journal"));
-            Console.WriteLine(FileHelper.CheckIsSqlite3("F:\\工作项目\\取证软件\\com.dolphin.browser.xf\\app_webview\\WebData"));
+            Console.WriteLine(DataSearchHelper.CheckIsSqlite3(@"C:\Users\zjf\Desktop\新建文件夹\2074532171filelist.db"));
+            Console.WriteLine(DataSearchHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\databases\browser.db"));
+            Console.WriteLine(DataSearchHelper.CheckIsSqlite3(@"F:\工作项目\取证软件\com.dolphin.browser.xf\browser.db-journal"));
+            Console.WriteLine(DataSearchHelper.CheckIsSqlite3("F:\\工作项目\\取证软件\\com.dolphin.browser.xf\\app_webview\\WebData"));
         }
 
+        /*
         static void Test()
         {
             using(DbSearcher DbSearcher = new DbSearcher())
@@ -76,6 +88,7 @@ namespace DataSearchTool
     
             
         }
+         * */
         static void BaseOperate()
         {
             using(var sqlite=new SQLiteConnection(@"Data Source=C:\Users\zjf\Desktop\新建文件夹\2074532171filelist.db;Version=3;"))

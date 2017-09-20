@@ -33,7 +33,7 @@ namespace DataSearchTool
 
         }
 
-        public DbSearchResult SearchStrInTableName(string keyStr)
+        public DataSearchResult SearchStrInTableName(string keyStr)
         {
             string selectCmd = "";
             List<string> names=new List<string>();
@@ -45,29 +45,33 @@ namespace DataSearchTool
                     names.Add(t.Name);
                 }
             }
-
-
             DataSet ds = new DataSet(); ;
             using (SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd, DbConnection))
             {
                 da.Fill(ds);
             }
 
-            var res = new DbSearchResult() { 
-                Name = entity.Name,
-                FullPath = entity.Path,
-                SearchByTableName=true
-            };
-            List<DataTable> ts = new List<DataTable>();
+            var rt = new List<DataSearchResultItem>();
             for (int i = 0; i < ds.Tables.Count; ++i)
             {
                 ds.Tables[i].TableName = names[i];
-                ts.Add(ds.Tables[i]);
+
+                rt.Add(new DbSearchResultItem()
+                {
+                    FileName = entity.Name,
+                    ResultInTableName = true,
+                    FullPath = entity.Path,
+                    RelatingFields = null,
+                    DataPath = names[i],
+                    Table = ds.Tables[i]
+                });
             }
-            res.Tables = ts;
-            return res;
+            return new DataSearchResult()
+                {
+                    Items = rt,                    
+                };
         }
-        public DbSearchResult SearchStr(string keyStr)
+        public DataSearchResult SearchStr(string keyStr)
         {
             string selectCmd="";
             foreach (var t in entity.Tables)
@@ -94,24 +98,44 @@ namespace DataSearchTool
                 da.Fill(ds);
             }
 
-            var res = new DbSearchResult()
-            {
-                Name = entity.Name,
-                FullPath = entity.Path,
-                SearchByTableName = false
-            };
+            var rt = new List<DataSearchResultItem>();
+
             List<DataTable> ts = new List<DataTable>();
             for(int i=0;i<entity.Tables.Count;++i)
             {                
                 if(ds.Tables[i].Rows.Count!=0)
                 {
                     ds.Tables[i].TableName = entity.Tables[i].Name;
-                    ts.Add(ds.Tables[i]);
+                    rt.Add(new DbSearchResultItem()
+                    {
+                        FileName = entity.Name,
+                        ResultInTableName = false,
+                        FullPath = entity.Path,
+                        RelatingFields = getRelatingFields(ds.Tables[i],keyStr),
+                        DataPath = ds.Tables[i].TableName,
+                        Table = ds.Tables[i],                        
+                    });
                 }
             }
-            res.Tables = ts;
+            return new DataSearchResult()
+            {
+                Items = rt,
+            };
+        }
+
+        List<string> getRelatingFields(DataTable table, string keyStr)
+        {
+            var res=new List<string>();
+            for (int i = 0; i < table.Columns.Count; ++i)
+            {
+                if (table.Rows[0][i].ToString().ToLower().Contains(keyStr.ToLower()))
+                {
+                    res.Add(table.Columns[i].ColumnName);
+                }
+            }
             return res;
         }
+
         public void Close()
         {
             if (DbConnection != null) DbConnection.Close();

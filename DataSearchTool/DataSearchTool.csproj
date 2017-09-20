@@ -47,14 +47,16 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Searcher\Common\DataSearcher.cs" />
+    <Compile Include="Searcher\Common\DataSearchResult.cs" />
     <Compile Include="Searcher\Database\DbEntity.cs" />
     <Compile Include="Searcher\Database\DbHelper.cs" />
     <Compile Include="Searcher\Database\DbSearcher.cs" />
-    <Compile Include="Searcher\Database\DbSearchResult.cs" />
+    <Compile Include="Searcher\Database\DbSearchResultItem.cs" />
     <Compile Include="Searcher\Database\DbTable.cs" />
     <Compile Include="Searcher\File\FileSearchResult.cs" />
     <Compile Include="Searcher\File\FileSearcher.cs" />
-    <Compile Include="Searcher\File\FileHelper.cs" />
+    <Compile Include="Searcher\Common\DataSearchHelper.cs" />
     <Compile Include="Searcher\Xml\XmlSearcher.cs" />
     <Compile Include="Searcher\Xml\XmlHelper.cs" />
   </ItemGroup>
