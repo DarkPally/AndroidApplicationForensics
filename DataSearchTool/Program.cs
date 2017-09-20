@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
 
-namespace DataBaseSearchTool
+namespace DataSearchTool
 {
     class Program
     {
@@ -20,7 +20,7 @@ namespace DataBaseSearchTool
         {
             var fs = new FileSearcher();
             fs.Init(@"D:\BluestacksCN\Engine\ProgramData\UserData\SharedFolder\com.baidu.netdisk");
-            var xx = fs.SearchStrAll("dark");
+            var xx = fs.SearchStrAll("2074532171");
             foreach(var it in xx.Results)
             {
 

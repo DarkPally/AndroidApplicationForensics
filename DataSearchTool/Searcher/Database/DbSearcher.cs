@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
 using System.Data;
-namespace DataBaseSearchTool
+namespace DataSearchTool
 {
     public class DbSearcher:IDisposable
     {

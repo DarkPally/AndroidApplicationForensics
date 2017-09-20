@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
-namespace DataBaseSearchTool
+namespace DataSearchTool
 {
     public class DbHelper
     {

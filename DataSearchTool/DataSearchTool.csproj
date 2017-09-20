@@ -7,7 +7,7 @@
     <ProjectGuid>{E19B8FE9-BC68-49F2-8EC6-5CE7B3D5288E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataBaseSearchTool</RootNamespace>
+    <RootNamespace>DataSearchTool</RootNamespace>
     <AssemblyName>DataBaseSearchTool</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,6 +55,8 @@
     <Compile Include="Searcher\File\FileSearchResult.cs" />
     <Compile Include="Searcher\File\FileSearcher.cs" />
     <Compile Include="Searcher\File\FileHelper.cs" />
+    <Compile Include="Searcher\Xml\XmlSearcher.cs" />
+    <Compile Include="Searcher\Xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

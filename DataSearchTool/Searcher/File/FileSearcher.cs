@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
 using System.IO;
-namespace DataBaseSearchTool
+namespace DataSearchTool
 {
     public class FileSearcher
     {

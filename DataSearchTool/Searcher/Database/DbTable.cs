@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataBaseSearchTool
+namespace DataSearchTool
 {
     public class DbTable
     {
