@@ -39,6 +39,8 @@ namespace DataSearchTool
             });
             return res;
         }
+
+        #region 按关键词搜索文件/数据
         public DataSearchResult SearchStrInDB(string keyStr)
         {
             DataSearchResult temp = new DataSearchResult();
@@ -116,9 +118,10 @@ namespace DataSearchTool
             res.Items.AddRange(SearchStrInFileName(keyStr).Items);
             return res;
         }
+        #endregion
 
     }
 
 
-    
+
 }

@@ -12,8 +12,38 @@ namespace DataSearchTool
     {
         static void Main(string[] args)
         {
-            TestXmlSearch();
+            TestMISearch();
             Console.ReadLine();
+        }
+        static void TestMISearch()
+        {
+            var fs = new DataSearcher();
+            fs.Init(@"F:\杂物\开发破解工具\ab_unpack\ab-unpack\backup");
+            var xx = fs.SearchStrInDBAll("意甲");
+            foreach (var it in xx.Items)
+            {
+
+                Console.WriteLine("类型:{0},文件路径:{1},文件名:{2},表名:{3}",
+                    it.SourceType,
+                    it.RelativePath,
+                    it.FileName,
+                    it.DataPath);
+
+                for (int i = 0; i < (it as DbSearchResultItem).Table.Columns.Count; ++i)
+                {
+                    Console.Write((it as DbSearchResultItem).Table.Columns[i].ColumnName + " ");
+                }
+                Console.WriteLine("");
+                for (int i=0;i< (it as DbSearchResultItem).Table.Rows.Count;++i)
+                {
+                    for (int j = 0; j < (it as DbSearchResultItem).Table.Columns.Count; ++j)
+                    {
+                        Console.Write((it as DbSearchResultItem).Table.Rows[i][j].ToString() + " ");
+                    }
+                    Console.WriteLine("");
+                }
+                        
+            }
         }
         static void TestXmlSearch()
         {
