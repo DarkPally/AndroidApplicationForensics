@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAF.Library", "AAF.Library\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAF.Test", "AAF.Test\AAF.Test.csproj", "{00EAA4C9-5123-47DA-8134-3DA2EE69BA49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAF.ViewModel", "AAF.ViewModel\AAF.ViewModel.csproj", "{17548973-0FFE-4179-B5D2-A8091A3E59BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AAF.Demo", "AAF.Demo\AAF.Demo.csproj", "{006B3BE8-509C-4DAD-B200-2CD2E9238D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{00EAA4C9-5123-47DA-8134-3DA2EE69BA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00EAA4C9-5123-47DA-8134-3DA2EE69BA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00EAA4C9-5123-47DA-8134-3DA2EE69BA49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17548973-0FFE-4179-B5D2-A8091A3E59BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17548973-0FFE-4179-B5D2-A8091A3E59BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17548973-0FFE-4179-B5D2-A8091A3E59BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17548973-0FFE-4179-B5D2-A8091A3E59BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006B3BE8-509C-4DAD-B200-2CD2E9238D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006B3BE8-509C-4DAD-B200-2CD2E9238D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006B3BE8-509C-4DAD-B200-2CD2E9238D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006B3BE8-509C-4DAD-B200-2CD2E9238D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

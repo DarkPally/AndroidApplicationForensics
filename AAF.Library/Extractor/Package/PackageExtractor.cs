@@ -67,9 +67,9 @@ namespace AAF.Library.Extractor
                 };
                 Result.KeyItems.Add(rule.Name, item);
             }
-            catch
+            catch(Exception e)
             {
-
+                Console.WriteLine(e.Message + " ---- " + path);
             }
 
         }

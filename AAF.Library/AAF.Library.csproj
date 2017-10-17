@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AAFManager.cs" />
     <Compile Include="Extractor\ExtractManager.cs" />
     <Compile Include="Extractor\Package\DataExtractResultItem.cs" />
     <Compile Include="Extractor\Package\PackageExtractHelper.cs" />
