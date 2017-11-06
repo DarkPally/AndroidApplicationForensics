@@ -90,5 +90,48 @@ namespace AAF.ViewModel
 
             });
         }
+
+        public DelegateCommand DoWorkFromADB
+        {
+            get
+            {
+                return doWorkFromAdb ?? (doWorkFromAdb = new DelegateCommand(ExecuteWorkFromADB));
+            }
+        }
+
+        DelegateCommand doWorkFromAdb;
+
+        public void ExecuteWorkFromADB()
+        {
+            
+            State = "解析中...";
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    var t = AAFManager.Instance.ExtractDataFromADB();
+                    DataSource = t.Select(c => new ExtractDataBinder()
+                    {
+                        Name = c.Name,
+                        DisplayName = c.Desc,
+                        Children = c.TableItems.Select(cc =>
+                                     new ExtractDataBinder()
+                                     {
+                                         Name = cc.Rule.Name,
+                                         DisplayName = cc.Rule.Desc,
+                                         DataSource = cc.Table
+                                     }).ToList(),
+                        DataSource = c.TableItems.FirstOrDefault() == null ? null : c.TableItems.FirstOrDefault().Table
+                    }).ToList();
+                    State = "解析完成！";
+                }
+                catch
+                {
+                    State = "解析出现异常";
+                }
+
+            });
+        }
+
     }
 }

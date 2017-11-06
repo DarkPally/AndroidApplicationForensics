@@ -10,7 +10,7 @@ namespace AAF.Library.Extractor
 {
     public class PackageExtractor
     {
-        public string PackageDictionaryPath { get; set; } //搜索的根目录,是包名
+        public string PackageDirectoryPath { get; set; } //搜索的根目录,是包名
 
         public RulePackageInfo RulePackage;
         public PackageExtractResult Result;
@@ -19,7 +19,7 @@ namespace AAF.Library.Extractor
 
         public void Init()
         {
-            DirectoryInfo theFolder = new DirectoryInfo(PackageDictionaryPath);
+            DirectoryInfo theFolder = new DirectoryInfo(PackageDirectoryPath);
             FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
             allFilePaths = thefileInfo.Select(c => c.FullName).ToList();
         }
@@ -27,7 +27,7 @@ namespace AAF.Library.Extractor
         
         string getSingleFile(string fileName,string relativePath)
         {
-            string path = PackageDictionaryPath+"\\"+relativePath + "\\" + fileName;
+            string path = PackageDirectoryPath + "\\"+relativePath + "\\" + fileName;
             if (allFilePaths.Contains(path)) return path;
             return null;
         }

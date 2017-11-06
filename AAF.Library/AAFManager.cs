@@ -38,7 +38,13 @@ namespace AAF.Library
         public List<PackageExtractResult> ExtractData(string rootPath)
         {
             Init();
-            return ExtractManager.Extract(rootPath);
+            return ExtractManager.ExtractDataFromDirectory(rootPath);
+        }
+
+        public List<PackageExtractResult> ExtractDataFromADB()
+        {
+            Init();
+            return ExtractManager.ExtractDataFromADB();
         }
     }
 }
