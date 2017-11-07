@@ -18,5 +18,7 @@ namespace AAF.ViewModel
         VMExtractor vmExtractor = new VMExtractor();
         public VMExtractor VMExtractor { get { return vmExtractor; } }
 
+        VMSearcher vmSearcher = new VMSearcher();
+        public VMSearcher VMSearcher { get { return vmSearcher; } }
     }
 }

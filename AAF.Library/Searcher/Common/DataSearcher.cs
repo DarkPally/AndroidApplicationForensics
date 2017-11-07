@@ -30,12 +30,30 @@ namespace AAF.Library.Searcher
             standardXmlFilePaths = DataSearchHelper.GetStandardXmlPaths(allFilePaths);
             
         }
+        void prepareXml()
+        {
+            if (!hasPreparedXml)
+            {
+                foreach (var it in standardXmlFilePaths)
+                {
+                    var dbs = new XmlSearcher();
+                    dbs.Init(it);
+                    if (dbs.KeyValueItems != null)
+                        KeyValueItems.AddRange(dbs.KeyValueItems);
+                }
+                hasPreparedXml = true;
+            }
+        }
         DataSearchResult processResult(DataSearchResult res)
         {
             res.RootPath = RootDirectoryPath;
             Parallel.ForEach(res.Items, it =>
             {
-                it.RelativePath = it.FullPath.Remove(0, RootDirectoryPath.Length);
+                if(it!=null && it.FullPath!=null)
+                {
+                    it.RelativePath = it.FullPath.Remove(0, RootDirectoryPath.Length);
+                }
+                
             });
             return res;
         }
@@ -49,7 +67,11 @@ namespace AAF.Library.Searcher
                 using (var dbs = new DbSearcher())
                 {
                     dbs.Init(it);
-                    temp.Items.AddRange(dbs.SearchStr(keyStr).Items);
+                    var t = dbs.SearchStr(keyStr).Items;
+                    lock(temp)
+                    {
+                        temp.Items.AddRange(t);
+                    }
                 }
             });
             return processResult(temp);
@@ -62,7 +84,11 @@ namespace AAF.Library.Searcher
                 using (var dbs = new DbSearcher())
                 {
                     dbs.Init(it);
-                    temp.Items.AddRange(dbs.SearchStr(keyStr).Items);
+                    var t = dbs.SearchStr(keyStr).Items;
+                    lock (temp)
+                    {
+                        temp.Items.AddRange(t);
+                    }
                 }
             });
             return processResult(temp);
@@ -75,8 +101,13 @@ namespace AAF.Library.Searcher
                 using (var dbs = new DbSearcher())
                 {
                     dbs.Init(it);
-                    temp.Items.AddRange(dbs.SearchStr(keyStr).Items);
-                    temp.Items.AddRange(dbs.SearchStrInTableName(keyStr).Items);
+                    var t1=dbs.SearchStr(keyStr).Items;
+                    var t2 = dbs.SearchStrInTableName(keyStr).Items;
+                    lock (temp)
+                    {
+                        temp.Items.AddRange(t1);
+                        temp.Items.AddRange(t2);
+                    }
                 }
             });
             return processResult(temp);
@@ -95,17 +126,7 @@ namespace AAF.Library.Searcher
         }
         public DataSearchResult SearchStrInXml(string keyStr)
         {
-            if (!hasPreparedXml)
-            {
-                foreach(var it in standardXmlFilePaths)
-                {
-                    var dbs = new XmlSearcher();
-                    dbs.Init(it);
-                    if (dbs.KeyValueItems!=null)
-                    KeyValueItems.AddRange(dbs.KeyValueItems);
-                }
-                hasPreparedXml = true;
-            }
+            prepareXml();
             var t=new DataSearchResult()
             {
                 Items = KeyValueItems.AsParallel().Where(c =>c.ElementValue!=null&& c.ElementValue.Contains(keyStr)).Select(c => c as DataSearchResultItem).ToList()
@@ -114,9 +135,48 @@ namespace AAF.Library.Searcher
         }
         public DataSearchResult SearchStr(string keyStr)
         {
-            var res = SearchStrInDBAll(keyStr);
+            var res = SearchStrInDB(keyStr);
+            res.Items.AddRange(SearchStrInXml(keyStr).Items);
+            return res;
+        }
+        public DataSearchResult SearchStrInPath(string keyStr)
+        {
+            var res = SearchStrInDBTableName(keyStr);
             res.Items.AddRange(SearchStrInFileName(keyStr).Items);
             return res;
+        }
+        #endregion
+
+        #region 搜索包含中文的数据
+        public DataSearchResult SearchChineseStrInDB()
+        {
+            return SearchStrInDB("[吖-做]");
+        }
+        #endregion
+
+        #region 搜索全部数据
+        public DataSearchResult SearchAll()
+        {
+            var res = new DataSearchResult();
+            
+            Parallel.ForEach(dbFilePaths, it =>
+            {
+                using (var dbs = new DbSearcher())
+                {
+                    dbs.Init(it);
+
+                    var tt = dbs.SearchAll().Items.ToList();
+                    lock(res)
+                    {
+                        res.Items.AddRange(tt);
+                    }
+                }
+            });
+            prepareXml();
+            res.Items.AddRange(KeyValueItems.AsParallel().Select(c => c as DataSearchResultItem).ToList());
+            
+
+            return processResult(res);
         }
         #endregion
 

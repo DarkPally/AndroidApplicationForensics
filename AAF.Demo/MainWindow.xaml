@@ -10,6 +10,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Grid>
-        <pages:PExtractor></pages:PExtractor>
+        <dx:DXTabControl x:Name="tabControl">
+            <dx:DXTabItem Header="数据提取">
+
+                <Grid  Background="Transparent">
+                    <pages:PExtractor/>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="数据搜索">
+                <Grid  Background="Transparent">
+                    <pages:PSearcher/>
+                </Grid>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+        
     </Grid>
 </dx:DXWindow>

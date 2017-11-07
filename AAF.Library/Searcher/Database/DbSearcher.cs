@@ -63,7 +63,7 @@ namespace AAF.Library.Searcher
                     FullPath = entity.Path,
                     RelatingFields = null,
                     DataPath = names[i],
-                    Table = ds.Tables[i]
+                    Table = ds.Tables[i],
                 });
             }
             return new DataSearchResult()
@@ -111,9 +111,46 @@ namespace AAF.Library.Searcher
                         FileName = entity.Name,
                         ResultInTableName = false,
                         FullPath = entity.Path,
-                        RelatingFields = getRelatingFields(ds.Tables[i],keyStr),
+                        //RelatingFields = getRelatingFields(ds.Tables[i],keyStr),
                         DataPath = ds.Tables[i].TableName,
-                        Table = ds.Tables[i],                        
+                        Table = ds.Tables[i],
+                    });
+                }
+            }
+            return new DataSearchResult()
+            {
+                Items = rt,
+            };
+        }
+
+        public DataSearchResult SearchAll()
+        {
+            string selectCmd = "";
+            foreach (var t in entity.Tables)
+            {
+                selectCmd += String.Format(selectTableFormat, t.Name);
+            }
+            DataSet ds = new DataSet(); ;
+            using (SQLiteDataAdapter da = new SQLiteDataAdapter(selectCmd, DbConnection))
+            {
+                da.Fill(ds);
+            }
+
+            var rt = new List<DataSearchResultItem>();
+
+            List<DataTable> ts = new List<DataTable>();
+            for (int i = 0; i < entity.Tables.Count; ++i)
+            {
+                if (ds.Tables[i].Rows.Count != 0)
+                {
+                    ds.Tables[i].TableName = entity.Tables[i].Name;
+                    rt.Add(new DbSearchResultItem()
+                    {
+                        FileName = entity.Name,
+                        ResultInTableName = false,
+                        FullPath = entity.Path,
+                        DataPath = ds.Tables[i].TableName,
+                        Table = ds.Tables[i],
                     });
                 }
             }
@@ -138,7 +175,13 @@ namespace AAF.Library.Searcher
 
         public void Close()
         {
-            if (DbConnection != null) DbConnection.Close();
+            if (DbConnection != null)
+            {
+                DbConnection.Close();
+                DbConnection.Dispose();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
         }
 
         #region Dispose方法

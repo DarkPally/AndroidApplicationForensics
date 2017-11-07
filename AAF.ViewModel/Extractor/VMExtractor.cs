@@ -56,7 +56,8 @@ namespace AAF.ViewModel
 
         public void ExecuteWork()
         {
-            if (Path == "")
+
+            if (Path == null || Path == "")
             {
                 State = "请输入根目录";
                 return;

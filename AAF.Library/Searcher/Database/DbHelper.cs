@@ -15,7 +15,11 @@ namespace AAF.Library.Searcher
             var schemaTable = conn.GetSchema("TABLES");
             for(int i = 0 ; i < schemaTable.Rows.Count ; i++)     
             {
-                res.Add(schemaTable.Rows[i]["TABLE_NAME"].ToString());
+                var name = schemaTable.Rows[i]["TABLE_NAME"].ToString();
+                if (name!= "android_metadata" && name!= "sqlite_sequence")
+                {
+                    res.Add(name);
+                }
             }
             return res;
 

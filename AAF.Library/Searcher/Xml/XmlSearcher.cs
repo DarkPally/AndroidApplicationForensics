@@ -15,34 +15,44 @@ namespace AAF.Library.Searcher
         public List<XmlSearchResultItem> KeyValueItems=new List<XmlSearchResultItem>();
         public void Init(string dbPath)
         {
-            var xml = new XmlDocument();
-            xml.Load(dbPath);
-            var fileName=Path.GetFileName(dbPath);
-            var node=xml.SelectSingleNode("map");
-            if(node!=null)
+            
+            try
             {
-                 
-                foreach(XmlNode it in node.ChildNodes)
+                var xml = new XmlDocument();
+                xml.Load(dbPath);
+                var fileName = Path.GetFileName(dbPath);
+                var node = xml.SelectSingleNode("map");
+                if (node != null)
                 {
-                    var tItem=new XmlSearchResultItem()
+
+                    foreach (XmlNode it in node.ChildNodes)
                     {
-                        FullPath=dbPath,
-                        DataPath=it.LocalName,
-                        FileName=fileName,
-                        ElementName=it.Attributes[0].Value,
-                        ElementType=it.LocalName
-                    };
-                    if(it.Attributes.Count>1)
-                    {
-                        tItem.ElementValue = it.Attributes[1].Value;
+                        var tItem = new XmlSearchResultItem()
+                        {
+                            FullPath = dbPath,
+                            FileName = fileName,
+                            ElementName = it.Attributes[0].Value,
+                            ElementType = it.LocalName,
+                            DataPath = it.Attributes[0].Value,
+                            
+                        };
+                        if (it.Attributes.Count > 1)
+                        {
+                            tItem.ElementValue = it.Attributes[1].Value;
+                        }
+                        else
+                        {
+                            tItem.ElementValue = it.InnerText;
+                        }
+                        tItem.Data = tItem.ElementValue;
+                        KeyValueItems.Add(tItem);
                     }
-                    else
-                    {
-                        tItem.ElementValue = it.InnerText;
-                    }
-                    KeyValueItems.Add( tItem);
                 }
-            }            
+            }
+            catch
+            {
+
+            }
         }
         public DataSearchResult SearchStr(string keyStr)
         {

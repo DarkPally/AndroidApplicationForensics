@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extractor\ExtractDataBinder.cs" />
+    <Compile Include="Extractor\VMSearcher.cs" />
     <Compile Include="Extractor\VMExtractor.cs" />
     <Compile Include="VMMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

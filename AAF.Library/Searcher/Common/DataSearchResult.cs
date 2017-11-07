@@ -38,6 +38,8 @@ namespace AAF.Library.Searcher
         //xml: xpath(数据父节点或目标节点)
         //file: 正则表达式
         public string DataPath { get; set; }
+
+        public object Data { get; set; }
     }
 
     

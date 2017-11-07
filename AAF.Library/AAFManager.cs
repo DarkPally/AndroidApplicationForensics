@@ -17,7 +17,7 @@ namespace AAF.Library
 
         public RuleManager RuleManager;
         public ExtractManager ExtractManager;
-
+        public DataSearcher DataSearcher;
         private AAFManager()
         {
             
@@ -46,5 +46,6 @@ namespace AAF.Library
             Init();
             return ExtractManager.ExtractDataFromADB();
         }
+
     }
 }
