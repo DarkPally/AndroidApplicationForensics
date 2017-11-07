@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AAF.Library.ExtractRule;
-using AAF.Library.Extractor.Android;
 using System.IO;
 
 namespace AAF.Library.Extractor
@@ -21,15 +20,23 @@ namespace AAF.Library.Extractor
             var res = new List<PackageExtractResult>();
             if (rootPath.Last() != '\\') rootPath += '\\';
             foreach (var rp in RuleManager.Packages)
-            {
-                var pe = new PackageExtractor()
+            {                
+                try
                 {
-                    RulePackage = rp,
-                    PackageDirectoryPath = rootPath + rp.Name,
-                };
-                pe.Init();
-                pe.DoWork();
-                res.Add(pe.Result);
+                    var pe = new PackageExtractor()
+                    {
+                        RulePackage = rp,
+                        PackageDirectoryPath = rootPath + rp.Name,
+                    };
+
+                    pe.Init();
+                    pe.DoWork();
+                    res.Add(pe.Result);
+                }
+                catch
+                {
+
+                }
             }
             return res;
         }
@@ -41,20 +48,30 @@ namespace AAF.Library.Extractor
 
         public void ExtractFileFromADB(string org_rootPath, string des_rootPath)
         {
-            foreach (var rp in RuleManager.Packages)
+            FileExtracter feh = new ShellScriptFileExtracter();
+            feh.InitConnection();
+            var device = feh.Devices.First();
+            var res = feh.ListDirecotry(device, org_rootPath);
+            if (res.success)
             {
-                foreach(var rule in rp.Items)
+                foreach (var rp in RuleManager.Packages)
                 {
-                    string des_dir = des_rootPath + rp.Name + "\\" + rule.RelativePath ;
-                    string des_path = des_rootPath+rp.Name+"\\"+ rule.RelativePath + "\\" + rule.FileName;
-                    string org_path = org_rootPath+rp.Name + "/"+rule.RelativePath + "/" + rule.FileName;
-                    if(!Directory.Exists(des_dir))
+                    if (res.filesName.Contains(rp.Name))
                     {
-                        Directory.CreateDirectory(des_dir);
-                    }
-                    AdbHelper.CopyFromDevice(AdbHelper.GetSerialNo(), org_path, des_path);
+                        foreach (var rule in rp.Items)
+                        {
+                            string des_path = des_rootPath + rp.Name + "\\" + rule.RelativePath;
+                            string org_path = org_rootPath + rp.Name + "/" + rule.RelativePath + "/" + rule.FileName;
+                            feh.CopyFileFromDevice(device, org_path, des_path);
+                        }
+                    }                       
                 }
             }
+            else
+            {
+                throw new Exception(res.errorMessage);
+            }
+            
         }
 
         public List<PackageExtractResult> ExtractDataFromADB()

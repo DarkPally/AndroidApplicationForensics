@@ -51,8 +51,8 @@
     <Compile Include="AAFManager.cs" />
     <Compile Include="Extractor\Android\AdbHelper.cs" />
     <Compile Include="Extractor\Android\ProcessHelper.cs" />
-    <Compile Include="Extractor\Android\SystemErrorCodes.cs" />
     <Compile Include="Extractor\ExtractManager.cs" />
+    <Compile Include="Extractor\File\FileExtractor.cs" />
     <Compile Include="Extractor\Package\DataExtractResultItem.cs" />
     <Compile Include="Extractor\Package\PackageExtractHelper.cs" />
     <Compile Include="Extractor\Package\PackageExtractor.cs" />
