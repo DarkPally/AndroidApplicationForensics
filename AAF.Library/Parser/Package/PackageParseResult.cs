@@ -5,38 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 using AAF.Library.ExtractRule;
 
-namespace AAF.Library.Extractor
+namespace AAF.Library.Parser
 {
-    public class PackageExtractResult
+    public class PackageParseResult
     {
         public string Name { get; set; }
 
         public string Desc { get; set; }
 
-        public Dictionary<string, DataExtractResultItem> KeyItems;
+        public Dictionary<string, DataParseResultItem> KeyItems;
 
-        public List<TableExtractResultItem> TableItems
+        public List<TableParseResultItem> TableItems
         {
             get
             {
                 if(KeyItems!=null)
                 {
-                    return KeyItems.AsParallel().Where(c => c.Value is TableExtractResultItem).Select(c => c.Value as TableExtractResultItem).ToList();
+                    return KeyItems.AsParallel().Where(c => c.Value is TableParseResultItem).Select(c => c.Value as TableParseResultItem).ToList();
                 }
                 return null;
             }
         }
-
-        public List<ValueExtractResultItem> ValueTable
+        /*
+        public List<ValueParseResultItem> ValueItems
         {
             get
             {
                 if (KeyItems != null)
                 {
-                    return KeyItems.AsParallel().Where(c => c.Value is ValueExtractResultItem).Select(c => c.Value as ValueExtractResultItem).ToList();
+                    return KeyItems.AsParallel().Where(c => c.Value is ValueParseResultItem).Select(c => c.Value as ValueParseResultItem).ToList();
                 }
                 return null;
             }
         }
+        */
     }
 }

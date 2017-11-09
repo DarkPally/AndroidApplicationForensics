@@ -7,25 +7,37 @@ using Newtonsoft.Json;
 
 namespace AAF.Library.ExtractRule
 {
-    class TestExtractRule
+    public class TestExtractRule
     {
-        static void TestMain(string[] args)
+        public static void TestMain(string[] args)
+        {
+            TestJsonShow();
+        }
+        static void TestLoad()
         {
             var x = new RuleManager();
             x.LoadRulePackages();
             Console.ReadKey();
         }
-
-        static void TestJsonShow(string[] args)
+        static void TestJsonShow()
         {
             var tempEntity = new RuleItemInfo()
             {
                 RelativePath = "databases",
                 FileName = "database.db",
-                DataPath = "t_history_record",
+                DataPath = "(?s)network={\n\t(ssid=\"(?<ssid>.*?)\"\n\t)" +
+                "(psk=\"(?<password>.*?)\"\n\t)?" +
+                "(key_mgmt=(?<key_mgmt>.*?)\n\t)" +
+                "(priority=(?<priority>\\d+))" +
+                "(.*?)" +
+                "\n}",
                 SourceType = RuleItemInfo.DataSourceType.DataBase,
                 Name = "Histroy",
                 Desc = "观看历史记录(直播）",
+                ExtraInfo = new RuleItemExtraInfo()
+                {
+                    IsHidden = true
+                }
             };
             RulePackageInfo package = new RulePackageInfo()
             {
@@ -36,7 +48,7 @@ namespace AAF.Library.ExtractRule
             var json = JsonConvert.SerializeObject(
                 package,
                 Formatting.Indented,
-                new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });
+                new Newtonsoft.Json.JsonSerializerSettings {NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore });
             Console.WriteLine(json);
             Console.ReadKey();
         }

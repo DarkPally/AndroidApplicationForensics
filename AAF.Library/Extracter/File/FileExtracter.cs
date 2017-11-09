@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using AAF.Library.Extractor.Android;
+using AAF.Library.Extracter.Android;
 
-namespace AAF.Library.Extractor
+namespace AAF.Library.Extracter
 {
     /// <summary>
     /// linux下的7种文件类型

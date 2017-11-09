@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using AAF.Library.ExtractRule;
 using System.IO;
 
-namespace AAF.Library.Extractor
+namespace AAF.Library.Parser
 {
-    public class PackageExtractor
+    public class PackageExtracter
     {
         public string PackageDirectoryPath { get; set; } //搜索的根目录,是包名
 
         public RulePackageInfo RulePackage;
-        public PackageExtractResult Result;
+        public PackageParseResult Result;
 
         List<string> allFilePaths;
 
@@ -27,7 +27,16 @@ namespace AAF.Library.Extractor
         
         string getSingleFile(string fileName,string relativePath)
         {
-            string path = PackageDirectoryPath + "\\"+relativePath + "\\" + fileName;
+            string path;
+            if (relativePath==null || relativePath == "")
+            {
+                path= PackageDirectoryPath + "\\" + fileName;
+            }
+            else
+            {
+                path = PackageDirectoryPath + "\\" + relativePath + "\\" + fileName;
+            }
+            
             if (allFilePaths.Contains(path)) return path;
             return null;
         }
@@ -40,6 +49,7 @@ namespace AAF.Library.Extractor
                 case RuleItemInfo.DataSourceType.None:
                     break;
                 case RuleItemInfo.DataSourceType.File:
+                    handleRuleFile(rule);
                     break;
                 case RuleItemInfo.DataSourceType.FileName:
                     break;
@@ -52,6 +62,25 @@ namespace AAF.Library.Extractor
                     break;
             }
         }
+        void handleRuleFile(RuleItemInfo rule)
+        {
+            var path = getSingleFile(rule.FileName, rule.RelativePath);
+            if (path == null) return;
+            try
+            {
+                var dt = PackageParseHelper.GetFileDataTable(path, rule.DataPath);
+                var item = new TableParseResultItem()
+                {
+                    Rule = rule,
+                    Table = dt,
+                };
+                Result.KeyItems.Add(rule.Name, item);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + " ---- " + path);
+            }
+        }
 
         void handleRuleDatabase(RuleItemInfo rule)
         {
@@ -59,8 +88,8 @@ namespace AAF.Library.Extractor
             if (path == null) return;
             try
             {
-                var dt = PackageExtractHelper.GetDbDataTable(path, rule.DataPath);
-                var item = new TableExtractResultItem()
+                var dt = PackageParseHelper.GetDbDataTable(path, rule.DataPath);
+                var item = new TableParseResultItem()
                 {
                     Rule = rule,
                     Table = dt,
@@ -77,11 +106,11 @@ namespace AAF.Library.Extractor
         public void DoWork()
         {
             if( RulePackage == null) return;
-            Result = new PackageExtractResult()
+            Result = new PackageParseResult()
             {
                 Desc = RulePackage.Desc,
                 Name = RulePackage.Name,
-                KeyItems = new Dictionary<string, DataExtractResultItem>()
+                KeyItems = new Dictionary<string, DataParseResultItem>()
             };
 
             foreach(var rule in RulePackage.Items)

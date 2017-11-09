@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using AAF.Library.Extractor;
+using AAF.Library.Extracter;
 using AAF.Library.ExtractRule;
-using AAF.Library.Searcher;
+using AAF.Library.Parser;
 
 namespace AAF.Library
 {
@@ -15,12 +15,13 @@ namespace AAF.Library
         private static readonly AAFManager instance = new AAFManager();
         public static AAFManager Instance { get { return instance; } }
 
-        public RuleManager RuleManager;
-        public ExtractManager ExtractManager;
-        public DataSearcher DataSearcher;
+        RuleManager RuleManager;
+        ExtractManager ExtractManager;
+        ParseManager ParseManager;
+
         private AAFManager()
         {
-            
+            Init();
         }
 
         public void Init()
@@ -32,19 +33,20 @@ namespace AAF.Library
 
                 ExtractManager = new ExtractManager();
                 ExtractManager.RuleManager = RuleManager;
+
+                ParseManager = new ParseManager();
+                ParseManager.RuleManager = RuleManager;
             }
         }
 
-        public List<PackageExtractResult> ExtractData(string rootPath)
+        public List<PackageParseResult> ParseData(string rootPath)
         {
-            Init();
-            return ExtractManager.ExtractDataFromDirectory(rootPath);
+            return ParseManager.ParseData(rootPath);
         }
 
-        public List<PackageExtractResult> ExtractDataFromADB()
+        public void ExtractDataFromADB(string pcPath)
         {
-            Init();
-            return ExtractManager.ExtractDataFromADB();
+            ExtractManager.ExtractFromADB(pcPath);
         }
 
     }

@@ -49,14 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AAFManager.cs" />
-    <Compile Include="Extractor\Android\AdbHelper.cs" />
-    <Compile Include="Extractor\Android\ProcessHelper.cs" />
-    <Compile Include="Extractor\ExtractManager.cs" />
-    <Compile Include="Extractor\File\FileExtractor.cs" />
-    <Compile Include="Extractor\Package\DataExtractResultItem.cs" />
-    <Compile Include="Extractor\Package\PackageExtractHelper.cs" />
-    <Compile Include="Extractor\Package\PackageExtractor.cs" />
-    <Compile Include="Extractor\Package\PackageExtractResult.cs" />
+    <Compile Include="Extracter\Android\AdbHelper.cs" />
+    <Compile Include="Extracter\Android\ProcessHelper.cs" />
+    <Compile Include="Extracter\ExtractManager.cs" />
+    <Compile Include="Extracter\File\FileExtracter.cs" />
+    <Compile Include="Parser\ParseManager.cs" />
+    <Compile Include="Parser\Package\DataParseResultItem.cs" />
+    <Compile Include="Parser\Package\PackageParseHelper.cs" />
+    <Compile Include="Parser\Package\PackageExtractor.cs" />
+    <Compile Include="Parser\Package\PackageParseResult.cs" />
     <Compile Include="ExtractRule\Rule\Extra\EI_FileNameMatch.cs" />
     <Compile Include="ExtractRule\Rule\Extra\EI_ReferDict.cs" />
     <Compile Include="ExtractRule\Rule\Extra\EI_ReferResult.cs" />

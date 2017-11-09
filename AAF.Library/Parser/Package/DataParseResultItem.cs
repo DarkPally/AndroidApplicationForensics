@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 using AAF.Library.ExtractRule;
 using System.Data;
-namespace AAF.Library.Extractor
+namespace AAF.Library.Parser
 {
-    public class DataExtractResultItem
+    public class DataParseResultItem
     {
         public RuleItemInfo Rule;
     }
 
-    public class TableExtractResultItem : DataExtractResultItem
+    //事实上目前所有的返回值都是Table
+
+    public class TableParseResultItem : DataParseResultItem
     {
         public DataTable Table { get; set; }
     }
 
-    public class ValueExtractResultItem : DataExtractResultItem
+    /*
+    public class ValueParseResultItem : DataParseResultItem
     {
         public string Value { get; set; }
     }
+    */
 }

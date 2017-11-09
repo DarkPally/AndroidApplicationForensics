@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Prism.Mvvm;
 using Prism.Commands;
 
-using AAF.Library.Extractor;
+using AAF.Library.Extracter;
 using AAF.Library;
 
 namespace AAF.ViewModel
@@ -42,7 +42,19 @@ namespace AAF.ViewModel
             }
         }
 
-        public string Path { get; set; }
+        string path = "";
+        public string Path
+        {
+            get { return path; }
+            set
+            {
+                if (path != value)
+                {
+                    path = value;
+                    RaisePropertyChanged("Path");
+                }
+            }
+        }
 
         public DelegateCommand DoWork
         {
@@ -68,20 +80,7 @@ namespace AAF.ViewModel
             {
                 try
                 {
-                    var t = AAFManager.Instance.ExtractData(Path);
-                    DataSource= t.Select(c => new ExtractDataBinder()
-                    {
-                        Name = c.Name,
-                        DisplayName = c.Desc,
-                        Children = c.TableItems.Select(cc =>
-                                     new ExtractDataBinder()
-                                     {
-                                         Name=cc.Rule.Name,
-                                         DisplayName=cc.Rule.Desc,
-                                         DataSource=cc.Table
-                                     }).ToList(),
-                        DataSource= c.TableItems.FirstOrDefault()==null?null: c.TableItems.FirstOrDefault().Table
-                    }).ToList();
+                    parseData();
                     State = "解析完成！";
                 }
                 catch
@@ -110,20 +109,9 @@ namespace AAF.ViewModel
             {
                 try
                 {
-                    var t = AAFManager.Instance.ExtractDataFromADB();
-                    DataSource = t.Select(c => new ExtractDataBinder()
-                    {
-                        Name = c.Name,
-                        DisplayName = c.Desc,
-                        Children = c.TableItems.Select(cc =>
-                                     new ExtractDataBinder()
-                                     {
-                                         Name = cc.Rule.Name,
-                                         DisplayName = cc.Rule.Desc,
-                                         DataSource = cc.Table
-                                     }).ToList(),
-                        DataSource = c.TableItems.FirstOrDefault() == null ? null : c.TableItems.FirstOrDefault().Table
-                    }).ToList();
+                    Path = System.Environment.CurrentDirectory + "\\temp\\";
+                    AAFManager.Instance.ExtractDataFromADB(Path);
+                    parseData();
                     State = "解析完成！";
                 }
                 catch
@@ -133,6 +121,25 @@ namespace AAF.ViewModel
 
             });
         }
-
+        void parseData()
+        {
+            var t = AAFManager.Instance.ParseData(Path);
+            DataSource = t.Select(c => new ExtractDataBinder()
+            {
+                Name = c.Name,
+                DisplayName = c.Desc,
+                Children = c.TableItems.Where(cc =>
+                                cc.Rule.ExtraInfo == null ||
+                                !cc.Rule.ExtraInfo.IsHidden
+                              ).Select(cc =>
+                              new ExtractDataBinder()
+                              {
+                                  Name = cc.Rule.Name,
+                                  DisplayName = cc.Rule.Desc,
+                                  DataSource = cc.Table
+                              }).ToList(),
+                DataSource = c.TableItems.FirstOrDefault() == null ? null : c.TableItems.FirstOrDefault().Table
+            }).ToList();
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace AAF.Library.Extractor.Android
+namespace AAF.Library.Extracter.Android
 {
     public class ProcessHelper
     {

@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using AAF.Library.Extractor;
-
+using AAF.Library.Extracter;
+using AAF.Library.ExtractRule;
 namespace AAF.Test
 {
     class Program
     {
         static void Main(string[] args)
         {
-            TestExtractor.TestMain(args);
+            TestExtractRule.TestMain(args);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace AAF.Library.Extractor.Android
+namespace AAF.Library.Extracter.Android
 {
 
     public class AdbHelper

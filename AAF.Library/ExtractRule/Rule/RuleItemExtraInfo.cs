@@ -8,6 +8,7 @@ namespace AAF.Library.ExtractRule
 {
     public class RuleItemExtraInfo
     {
+        public bool IsHidden { get; set; }
         public List<EI_ShowField> ShowFields { get; set; }
         //数据描述，中文名称
         //不在本数据库表内，而在完整规则内定义

@@ -19,7 +19,7 @@ namespace AAF.Library.ExtractRule
         {
             Packages = new List<RulePackageInfo>();
             DirectoryInfo theFolder = new DirectoryInfo(LibraryPath);
-            FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.TopDirectoryOnly);
+            FileInfo[] thefileInfo = theFolder.GetFiles("*.*", SearchOption.AllDirectories);
 
             Parallel.ForEach(thefileInfo, f =>
              {
