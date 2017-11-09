@@ -12,49 +12,8 @@ using AAF.Library;
 
 namespace AAF.ViewModel
 {
-    public class VMExtractor : BindableBase
+    public class VMExtractor : VMBase
     {
-        object dataSource;
-        public object DataSource
-        {
-            get { return dataSource; }
-            set
-            {
-                if (dataSource != value)
-                {
-                    dataSource = value;
-                    RaisePropertyChanged("DataSource");
-                }
-            }
-        }
-
-        string state = "准备就绪";
-        public string State
-        {
-            get { return state; }
-            set
-            {
-                if (state != value)
-                {
-                    state = value;
-                    RaisePropertyChanged("State");
-                }
-            }
-        }
-
-        string path = "";
-        public string Path
-        {
-            get { return path; }
-            set
-            {
-                if (path != value)
-                {
-                    path = value;
-                    RaisePropertyChanged("Path");
-                }
-            }
-        }
 
         public DelegateCommand DoWork
         {

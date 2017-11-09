@@ -43,10 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Searcher\DeviceSearchBinder.cs" />
     <Compile Include="Extractor\ExtractDataBinder.cs" />
-    <Compile Include="Extractor\VMSearcher.cs" />
+    <Compile Include="Searcher\VMDeviceSearcher.cs" />
+    <Compile Include="Common\VMBase.cs" />
+    <Compile Include="Searcher\VMSearcher.cs" />
     <Compile Include="Extractor\VMExtractor.cs" />
-    <Compile Include="VMMain.cs" />
+    <Compile Include="Common\VMMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

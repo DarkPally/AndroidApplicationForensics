@@ -95,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\PDeviceSearcher.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\PSearcher.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,6 +109,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\PDeviceSearcher.xaml.cs">
+      <DependentUpon>PDeviceSearcher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PSearcher.xaml.cs">
       <DependentUpon>PSearcher.xaml</DependentUpon>
     </Compile>

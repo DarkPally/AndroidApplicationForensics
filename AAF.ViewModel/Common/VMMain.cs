@@ -20,5 +20,8 @@ namespace AAF.ViewModel
 
         VMSearcher vmSearcher = new VMSearcher();
         public VMSearcher VMSearcher { get { return vmSearcher; } }
+
+        VMDeviceSearcher vmDeviceSearcher = new VMDeviceSearcher();
+        public VMDeviceSearcher VMDeviceSearcher { get { return vmDeviceSearcher; } }
     }
 }

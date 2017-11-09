@@ -31,7 +31,7 @@ namespace AAF.Library.Extracter
     /// <summary>
     /// 存放文件详细信息的数据结构
     /// </summary>
-    class FileProperty
+    public class FileProperty
     {
         public Type type;
         public string path;
@@ -44,7 +44,7 @@ namespace AAF.Library.Extracter
     /// 函数调用之后统一返回的结果类型
     /// </summary>
     // enum State { noConnection, copyFail, invalidInput, unexpectedOutput, fileNotExist};
-    class Result
+    public class Result
     {
         public bool success;
         public string errorMessage;
@@ -60,7 +60,7 @@ namespace AAF.Library.Extracter
     /// <summary>
     /// 文件操作的接口
     /// </summary>
-    interface FileExtracter
+    public interface FileExtracter
     {
         Result InitConnection();
         Result GetFileInformation(string device, string path);
@@ -72,7 +72,7 @@ namespace AAF.Library.Extracter
         string[] Devices { get; }
     }
 
-    class ShellScriptFileExtracter : FileExtracter
+    public class ShellScriptFileExtracter : FileExtracter
     {
         string[] devices;
 

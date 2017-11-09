@@ -17,9 +17,14 @@
                     <pages:PExtractor/>
                 </Grid>
             </dx:DXTabItem>
-            <dx:DXTabItem Header="数据搜索">
+            <dx:DXTabItem Header="本地搜索">
                 <Grid  Background="Transparent">
                     <pages:PSearcher/>
+                </Grid>
+            </dx:DXTabItem>
+            <dx:DXTabItem Header="设备搜索">
+                <Grid  Background="Transparent">
+                    <pages:PDeviceSearcher/>
                 </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>
