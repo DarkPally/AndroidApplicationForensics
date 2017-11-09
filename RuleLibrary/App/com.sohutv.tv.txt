@@ -1,0 +1,14 @@
+{
+  "Name": "com.sohutv.tv",
+  "Desc": "搜狐视频",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "sohutv.db",
+      "SourceType": 4,
+      "DataPath": "sohu_video_history"
+    }
+  ]
+}

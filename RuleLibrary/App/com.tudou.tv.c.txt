@@ -1,0 +1,22 @@
+{
+  "Name": "com.tudou.tv.c",
+  "Desc": "土豆视频",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "youku_tv_11.db",
+      "SourceType": 4,
+      "DataPath": "play_history"
+    },
+    {
+      "Name": "Search",
+      "Desc": "搜索记录",
+      "RelativePath": "databases",
+      "FileName": "youku_tv_11.db",
+      "SourceType": 4,
+      "DataPath": "search_history"
+    },
+  ]
+}

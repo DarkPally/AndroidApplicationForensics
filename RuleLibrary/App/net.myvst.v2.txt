@@ -1,0 +1,14 @@
+{
+  "Name": "net.myvst.v2",
+  "Desc": "全聚合",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "vodrecode.db",
+      "SourceType": 4,
+      "DataPath": "vod_recode"
+    }
+  ]
+}

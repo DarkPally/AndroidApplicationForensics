@@ -1,0 +1,14 @@
+{
+  "Name": "cn.cibntv.ott",
+  "Desc": "中国国际广播电视网络台",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "cibnepg.sqlite",
+      "SourceType": 4,
+      "DataPath": "HIS_TAB"
+    }
+  ]
+}

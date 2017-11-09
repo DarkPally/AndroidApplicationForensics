@@ -1,0 +1,30 @@
+{
+  "Name": "cn.beevideo",
+  "Desc": "蜜蜂视频",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "db_video_history",
+      "SourceType": 4,
+      "DataPath": "t_video_history"
+    },
+    {
+      "Name": "Search",
+      "Desc": "搜索记录",
+      "RelativePath": "databases",
+      "FileName": "stat",
+      "SourceType": 4,
+      "DataPath": "t_event"
+    },
+   {
+      "Name": "Account",
+      "Desc": "账户信息",
+      "RelativePath": "databases",
+      "FileName": "user",
+      "SourceType": 4,
+      "DataPath": "t_admin"
+    }
+  ]
+}

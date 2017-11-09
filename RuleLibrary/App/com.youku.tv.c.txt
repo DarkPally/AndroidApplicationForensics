@@ -1,0 +1,22 @@
+{
+  "Name": "com.youku.tv.c",
+  "Desc": "优酷视频",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "youku_tv_11.db",
+      "SourceType": 4,
+      "DataPath": "play_history"
+    },
+    {
+      "Name": "Search",
+      "Desc": "搜索记录",
+      "RelativePath": "databases",
+      "FileName": "youku_tv_11.db",
+      "SourceType": 4,
+      "DataPath": "search_history"
+    },
+  ]
+}

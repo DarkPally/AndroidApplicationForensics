@@ -1,0 +1,31 @@
+{
+  "Name": "com.molitv.android",
+  "Desc": "魔力",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "webvideo.db",
+      "SourceType": 4,
+      "DataPath": "VodPlayList"
+    },
+    {
+      "Name": "Time",
+      "Desc": "观看时间",
+      "RelativePath": "databases",
+      "FileName": "webvideo.db",
+      "SourceType": 4,
+      "DataPath": "VodPlayListHistory"
+    },
+   {
+      "Name": "WebHistroy",
+      "Desc": "在线观看历史",
+      "RelativePath": "databases",
+      "FileName": "webvideo.db",
+      "SourceType": 4,
+      "DataPath": "WebPlayHistory"
+    }
+  ]
+}
+	

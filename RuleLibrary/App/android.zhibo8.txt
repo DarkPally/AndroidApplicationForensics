@@ -1,0 +1,14 @@
+{
+  "Name": "android.zhibo8",
+  "Desc": "直播吧",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "database.db",
+      "SourceType": 4,
+      "DataPath": "t_history_record"
+    }
+  ]
+}

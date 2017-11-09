@@ -1,0 +1,22 @@
+{
+  "Name": "tv.pps.tpad",
+  "Desc": "爱奇艺",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "pps_user_data.db",
+      "SourceType": 4,
+      "DataPath": "historylist"
+    },
+    {
+      "Name": "Search",
+      "Desc": "搜索记录",
+      "RelativePath": "databases",
+      "FileName": "pps_user_data.db",
+      "SourceType": 4,
+      "DataPath": "search"
+    },
+  ]
+}

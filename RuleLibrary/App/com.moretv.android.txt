@@ -1,0 +1,22 @@
+{
+  "Name": "com.moretv.android",
+  "Desc": "电视猫",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "moretv_data",
+      "SourceType": 4,
+      "DataPath": "historyRecord"
+    },
+    {
+      "Name": "HIstory",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "moretv_data_release",
+      "SourceType": 4,
+      "DataPath": "newHistoryRecord"
+    },
+  ]
+}

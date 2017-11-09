@@ -1,0 +1,16 @@
+{
+  "Name": "wifi_info",
+  "Desc": "WIFI信息",
+  "RootPath": "data/misc/wifi",
+  "Items": [
+    {
+      "Name": "Info",
+      "Desc": "WIFI信息",
+      "RelativePath": "",
+      "FileName": "wpa_supplicant.conf",
+      "SourceType": 1,
+      "DataPath": "(?s)network={\n\t(ssid=\"(?<ssid>.*?)\"\n\t)(psk=\"(?<password>.*?)\"\n\t)?(key_mgmt=(?<key_mgmt>.*?)\n\t)(priority=(?<priority>\\d+))(.*?)\n}",
+    },
+
+  ]
+}

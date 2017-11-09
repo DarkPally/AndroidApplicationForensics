@@ -1,0 +1,14 @@
+{
+  "Name": "com.kanke.tv",
+  "Desc": "看客",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "KanKeTV_Database",
+      "SourceType": 4,
+      "DataPath": "PlayHistory"
+    }
+  ]
+}

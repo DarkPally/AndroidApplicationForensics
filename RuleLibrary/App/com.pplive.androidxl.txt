@@ -1,0 +1,14 @@
+{
+  "Name": "com.pplive.androidxl",
+  "Desc": "聚力视频",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "pptv_atv.db",
+      "SourceType": 4,
+      "DataPath": "channel_history"
+    }
+  ]
+}
