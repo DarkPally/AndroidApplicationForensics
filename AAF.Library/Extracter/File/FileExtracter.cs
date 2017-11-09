@@ -76,7 +76,7 @@ namespace AAF.Library.Extracter
             get { return devices; }
         }
 
-        List<FileProperty> ParaseProperties(string[] rawData)
+        List<FileProperty> ParaseProperties(string[] rawData, string path = "")
         {
             List<FileProperty> result = new List<FileProperty>();
             foreach(string item in rawData)
@@ -99,8 +99,11 @@ namespace AAF.Library.Extracter
                 string timePattern = @"\d{2}:\d{2}";
                 property.modifyTime = Regex.Match(item, timePattern).ToString();
 
-                string pathPattern = @"\b\S+$";
-                property.path = Regex.Match(item, pathPattern).ToString().Replace("'", "");
+                string pathPattern = @"\S+$";
+                if (path.Length == 0)
+                    property.path = Regex.Match(item, pathPattern).ToString();
+                else
+                    property.path = path + "/" + Regex.Match(item, pathPattern).ToString();
 
                 result.Add(property);
             }
@@ -150,7 +153,7 @@ namespace AAF.Library.Extracter
                 if (IsAccess(device, path))
                 {
                     var items = AdbHelper.ListDataFolder(device, path);
-                    result.filesProperty = ParaseProperties(items);
+                    result.filesProperty = ParaseProperties(items, path);
                     result.success = true;
                 }
             }
@@ -165,18 +168,10 @@ namespace AAF.Library.Extracter
 
         public Result SearchFiles(string device, string path, string pattern)
         {
-            string searchScript;
-            searchScript = System.String.Format(
-                                               "find {0} -name \\\"{1}\\\" -type {2}|" +
-                                               "while read i;do " +
-                                               "echo \\\"$(ls -l \\\"$i\\\")\\\"; " +
-                                               "done", path, pattern, (char)Type.file);
-            // string scriptName = "/sdcard/utils/search" + path.Replace('/', '_');
-
             Result result = new Result();
             try
             {
-                var items = AdbHelper.RunShell(device, searchScript);
+                var items = AdbHelper.SearchFiles(device, path, pattern);
                 result.filesProperty = ParaseProperties(items);
                 result.success = true;
             }

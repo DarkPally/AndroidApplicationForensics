@@ -116,22 +116,6 @@ namespace AAF.Library.Extracter.Android
         }
 
         /// <summary>
-        /// 运行shell命令
-        /// </summary>
-        /// <param name="deviceNo"></param>
-        /// <param name="cmd"></param>
-        public static string[] RunShell(string deviceNo, string cmd)
-        {
-            string args = System.String.Format(ShellTemplate, deviceNo, cmd);
-            var result = ProcessHelper.Run(AdbExePath, args);
-            string[] items = new string[0];
-            if (result.OutputString == null)
-                return items;
-            items = result.OutputString.Split(new[] { "$", "#", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            return items;
-        }
-
-        /// <summary>
         /// 获取某目录下的文件
         /// </summary>
         /// <param name="path">路径</param>
@@ -148,6 +132,7 @@ namespace AAF.Library.Extracter.Android
                 return items;
             // m_log.Info("获取路径结果：" + result.ToString());
             items = result.OutputString.Split(new[] { "$", "#", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
             return items;
         }
 
@@ -158,14 +143,15 @@ namespace AAF.Library.Extracter.Android
         /// <param name="path">搜索路径</param>
         /// <param name="type">搜索类型</param>
         /// <returns></returns>
-        public static string[] SearchFiles(string deviceNo, string pattern, string path = "/", char type = 'a')
+        public static string[] SearchFiles(string deviceNo, string path, string pattern, char type = 'f')
         {
             path = PathNormalize(path);
-            string cmd;
-            if (type == 'a')
-                cmd = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
-            else
-                cmd = "\"find " + path + " -type " + type + " -name \\\"" + pattern + "\\\"\"";
+            string cmd = System.String.Format(
+                                               "find {0} -name \\\"{1}\\\" -type {2}|" +
+                                               "while read i;do " +
+                                               "echo \\\"$(ls -l $i) $i\\\"; " +
+                                               "done", path, pattern, type);
+
             string args = System.String.Format(ShellTemplate, deviceNo, cmd);
 
             var result = ProcessHelper.Run(AdbExePath, args);
