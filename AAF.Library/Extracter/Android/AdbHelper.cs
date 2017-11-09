@@ -15,6 +15,8 @@ namespace AAF.Library.Extracter.Android
         /// </summary>
         public static string AdbExePath = "adb.exe";
 
+        static string ShellTemplate = " -s {0} shell \"su -c '{1}'\"";
+
         /// <summary>
         /// 当前ADB状态：
         /// adb get-state                - prints: offline | bootloader | device | unknown
@@ -114,40 +116,13 @@ namespace AAF.Library.Extracter.Android
         }
 
         /// <summary>
-        /// 获取原始的文档属性数据
-        /// </summary>
-        /// <param name="deviceNo"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static string[] GetProperty(string deviceNo, string path)
-        {
-            path = PathNormalize(path);
-            string args = " -s " + deviceNo + " shell su -c \"stat " + path + "\"";
-            var result = ProcessHelper.Run(AdbExePath, args);
-
-            var items = result.OutputString.Split(new[] { "$", "#", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            return items;
-        }
-
-        /// <summary>
-        /// 在设备中创建所需要的shell脚本
-        /// </summary>
-        /// <param name="deviceNo"></param>
-        /// <param name="shellCode"></param>
-        public static void CreateShellScript(string deviceNo, string scriptName, string shellCode)
-        {
-            string args = System.String.Format(@" -s {0} shell su -c ""echo '{1}' >{2}""", deviceNo, shellCode, scriptName);
-            ProcessHelper.Run(AdbExePath, args);
-        }
-
-        /// <summary>
         /// 运行shell命令
         /// </summary>
         /// <param name="deviceNo"></param>
         /// <param name="cmd"></param>
         public static string[] RunShell(string deviceNo, string cmd)
         {
-            string args = " -s " + deviceNo + " shell \"su -c '" + cmd + "'\"";
+            string args = System.String.Format(ShellTemplate, deviceNo, cmd);
             var result = ProcessHelper.Run(AdbExePath, args);
             string[] items = new string[0];
             if (result.OutputString == null)
@@ -164,7 +139,8 @@ namespace AAF.Library.Extracter.Android
         public static string[] ListDataFolder(string deviceNo, string path)
         {
             path = PathNormalize(path);
-            string args = " -s " + deviceNo + " shell su -c ls " + path;
+            string cmd = "ls -l " + path;
+            string args = System.String.Format(ShellTemplate, deviceNo, cmd);
             var result = ProcessHelper.Run(AdbExePath, args);
 
             string[] items = new string[0];
@@ -185,14 +161,14 @@ namespace AAF.Library.Extracter.Android
         public static string[] SearchFiles(string deviceNo, string pattern, string path = "/", char type = 'a')
         {
             path = PathNormalize(path);
-            string initArgs = " -s " + deviceNo + " shell su -c ";
-            string runArgs;
+            string cmd;
             if (type == 'a')
-                runArgs = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
+                cmd = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
             else
-                runArgs = "\"find " + path + " -type " + type + " -name \\\"" + pattern + "\\\"\"";
+                cmd = "\"find " + path + " -type " + type + " -name \\\"" + pattern + "\\\"\"";
+            string args = System.String.Format(ShellTemplate, deviceNo, cmd);
 
-            var result = ProcessHelper.Run(AdbExePath, initArgs + runArgs);
+            var result = ProcessHelper.Run(AdbExePath, args);
 
             var items = result.OutputString.Split(new[] { "$", "#", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             return items;
