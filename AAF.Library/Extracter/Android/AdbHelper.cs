@@ -122,7 +122,7 @@ namespace AAF.Library.Extracter.Android
         public static string[] GetProperty(string deviceNo, string path)
         {
             path = PathNormalize(path);
-            string args = " -s " + deviceNo + " shell \"stat " + path + "\"";
+            string args = " -s " + deviceNo + " shell su -c \"stat " + path + "\"";
             var result = ProcessHelper.Run(AdbExePath, args);
 
             var items = result.OutputString.Split(new[] { "$", "#", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
@@ -136,7 +136,7 @@ namespace AAF.Library.Extracter.Android
         /// <param name="shellCode"></param>
         public static void CreateShellScript(string deviceNo, string scriptName, string shellCode)
         {
-            string args = System.String.Format(@" -s {0} shell ""echo '{1}' >{2}""", deviceNo, shellCode, scriptName);
+            string args = System.String.Format(@" -s {0} shell su -c ""echo '{1}' >{2}""", deviceNo, shellCode, scriptName);
             ProcessHelper.Run(AdbExePath, args);
         }
 
@@ -147,7 +147,7 @@ namespace AAF.Library.Extracter.Android
         /// <param name="cmd"></param>
         public static string[] RunShell(string deviceNo, string cmd)
         {
-            string args = " -s " + deviceNo + " shell \"" + cmd + "\"";
+            string args = " -s " + deviceNo + " shell \"su -c '" + cmd + "'\"";
             var result = ProcessHelper.Run(AdbExePath, args);
             string[] items = new string[0];
             if (result.OutputString == null)
@@ -164,7 +164,7 @@ namespace AAF.Library.Extracter.Android
         public static string[] ListDataFolder(string deviceNo, string path)
         {
             path = PathNormalize(path);
-            string args = " -s " + deviceNo + " shell ls " + path;
+            string args = " -s " + deviceNo + " shell su -c ls " + path;
             var result = ProcessHelper.Run(AdbExePath, args);
 
             string[] items = new string[0];
@@ -185,7 +185,7 @@ namespace AAF.Library.Extracter.Android
         public static string[] SearchFiles(string deviceNo, string pattern, string path = "/", char type = 'a')
         {
             path = PathNormalize(path);
-            string initArgs = " -s " + deviceNo + " shell ";
+            string initArgs = " -s " + deviceNo + " shell su -c ";
             string runArgs;
             if (type == 'a')
                 runArgs = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
