@@ -114,8 +114,8 @@ namespace AAF.Library.Extracter.Android
         }
 
         /// <summary>
-<<<<<<< HEAD
-=======
+
+
         /// 获取原始的文档属性数据
         /// </summary>
         /// <param name="deviceNo"></param>
@@ -159,7 +159,7 @@ namespace AAF.Library.Extracter.Android
         }
 
         /// <summary>
->>>>>>> parent of cb14f61... 去除stat使用
+
         /// 获取某目录下的文件
         /// </summary>
         /// <param name="path">路径</param>
@@ -189,22 +189,14 @@ namespace AAF.Library.Extracter.Android
         public static string[] SearchFiles(string deviceNo, string path, string pattern, char type = 'f')
         {
             path = PathNormalize(path);
-<<<<<<< HEAD
-            string cmd = System.String.Format(
-                                               "find {0} -name \\\"{1}\\\" -type {2}|" +
-                                               "while read i;do " +
-                                               "echo \\\"$(ls -l $i) $i\\\"; " +
-                                               "done", path, pattern, type);
 
-            string args = System.String.Format(ShellTemplate, deviceNo, cmd);
-=======
             string initArgs = " -s " + deviceNo + " shell su -c ";
             string runArgs;
             if (type == 'a')
                 runArgs = "\"find " + path + " -name \\\"" + pattern + "\\\"\"";
             else
                 runArgs = "\"find " + path + " -type " + type + " -name \\\"" + pattern + "\\\"\"";
->>>>>>> parent of cb14f61... 去除stat使用
+
 
             var result = ProcessHelper.Run(AdbExePath, initArgs + runArgs);
 

@@ -98,18 +98,12 @@ namespace AAF.Library.Extracter
                 if (rawData[i + 1].Contains("regular")) property.type = Type.file;
                 if (rawData[i + 1].Contains("symbol")) property.type = Type.link;
 
-<<<<<<< HEAD
-                string pathPattern = @"\S+$";
-                if (path.Length == 0)
-                    property.path = Regex.Match(item, pathPattern).ToString();
-                else
-                    property.path = path + "/" + Regex.Match(item, pathPattern).ToString();
-=======
+
                 string sizePattern = @"(?<=Size: )\d*\b";
                 property.size = Regex.Matches(rawData[i + 1], sizePattern)[0].ToString();
                 string pathPattern = @"(?<=File: ).*";
                 property.path = Regex.Matches(rawData[i], pathPattern)[0].ToString().Replace("'", "");
->>>>>>> parent of cb14f61... 去除stat使用
+
 
                 result.Add(property);
             }
@@ -182,14 +176,11 @@ namespace AAF.Library.Extracter
                 FileProperty property = GetProperty(device, path);
                 if (property.type == Type.directory)
                 {
-<<<<<<< HEAD
-                    var items = AdbHelper.ListDataFolder(device, path);
-                    result.filesProperty = ParaseProperties(items, path);
-=======
+
                     result.filesName = new List<string>();
                     foreach (string file in AdbHelper.ListDataFolder(device, path))
                         result.filesName.Add(file);
->>>>>>> parent of cb14f61... 去除stat使用
+
                     result.success = true;
                 }
                 else
@@ -270,13 +261,7 @@ namespace AAF.Library.Extracter
 
         public Result SearchFilesVerbose(string device, string path, string pattern, Type fileType)
         {
-<<<<<<< HEAD
-            Result result = new Result();
-            try
-            {
-                var items = AdbHelper.SearchFiles(device, path, pattern);
-                result.filesProperty = ParaseProperties(items);
-=======
+
             string searchScript;
             if (fileType == Type.alltype)
             {
@@ -301,7 +286,7 @@ namespace AAF.Library.Extracter
             {
                 var properities = AdbHelper.RunShell(device, searchScript);
                 result.filesProperty = ParaseProperties(properities);
->>>>>>> parent of cb14f61... 去除stat使用
+
                 result.success = true;
             }
             catch (Exception ex)
