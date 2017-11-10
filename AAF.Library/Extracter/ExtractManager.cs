@@ -48,9 +48,19 @@ namespace AAF.Library.Extracter
                         string pcRootPath = rp.RootPath.Replace('/', '\\');
                         foreach (var rule in rp.Items)
                         {
-                            string des_path = des_rootPath + pcRootPath + "\\" + rule.RelativePath;
-                            string org_path = rp.RootPath + "/" + rule.RelativePath + "/" + rule.FileName;
-                            feh.CopyFileFromDevice(device, org_path, des_path);
+                            if(rule.RelativePath==null|| rule.RelativePath=="")
+                            {
+                                string des_path = des_rootPath + pcRootPath;
+                                string org_path = rp.RootPath + "/"  + rule.FileName;
+                                feh.CopyFileFromDevice(device, org_path, des_path);
+                            }
+                            else
+                            {
+                                string des_path = des_rootPath + pcRootPath + "\\" + rule.RelativePath;
+                                string org_path = rp.RootPath + "/" + rule.RelativePath + "/" + rule.FileName;
+                                feh.CopyFileFromDevice(device, org_path, des_path);
+                            }
+                            
                         }
                     }
                 }
