@@ -12,7 +12,7 @@ namespace AAF.Test
     {
         static void Main(string[] args)
         {
-            TestExtractRule.TestMain(args);
+            TestExtractor.TestMain(args);
         }
     }
 }

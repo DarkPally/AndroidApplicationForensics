@@ -23,17 +23,17 @@ namespace AAF.Library.Extracter
         public static void TestWifiParse()
         {
             // 判断文件是否存在
-            string filePath = @"C:\Users\zjf\Desktop\ww1\wifi\wpa_supplicant.conf";
+            string filePath = @"C:\Users\zjf\Desktop\ww2\wifi\wpa_supplicant.conf";
             StreamReader sr = new StreamReader(filePath, System.Text.Encoding.Default);
             string temp = sr.ReadToEnd();
             sr.Close();
 
 
-            string regexStr = "(?s)network={\n\t(ssid=\"(?<ssid>.*?)\"\n\t)" +
-                "(psk=\"(?<password>.*?)\"\n\t)?" +
-                "(key_mgmt=(?<key_mgmt>.*?)\n\t)" +
-                "(priority=(?<priority>\\d+))" +
-                "(.*?)" +
+            string regexStr = "(?s)network={(\n\tssid=\"(?<ssid>.*?)\")" +
+                "(\n\tpsk=\"(?<password>.*?)\")?" +
+                "(\n\tkey_mgmt=(?<key_mgmt>.*?))" +
+                "(\n\tpriority=(?<priority>\\d+))?" +
+                "" +
                 "\n}";
 
             Regex r = new Regex(regexStr, RegexOptions.None);

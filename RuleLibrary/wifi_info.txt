@@ -9,7 +9,7 @@
       "RelativePath": "",
       "FileName": "wpa_supplicant.conf",
       "SourceType": 1,
-      "DataPath": "(?s)network={\n\t(ssid=\"(?<ssid>.*?)\"\n\t)(psk=\"(?<password>.*?)\"\n\t)?(key_mgmt=(?<key_mgmt>.*?)\n\t)(priority=(?<priority>\\d+))(.*?)\n}",
+      "DataPath": "(?s)network={(\n\tssid=\"(?<ssid>.*?)\")(\n\tpsk=\"(?<password>.*?)\")?(\n\tkey_mgmt=(?<key_mgmt>.*?))(\n\tpriority=(?<priority>\\d+))?\n}",
     },
 
   ]
