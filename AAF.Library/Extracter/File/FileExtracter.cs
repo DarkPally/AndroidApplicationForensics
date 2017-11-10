@@ -65,9 +65,9 @@ namespace AAF.Library.Extracter
         Result InitConnection();
         Result GetFileInformation(string device, string path);
         Result ListDirecotry(string device, string path);
-        Result SearchFiles(string device, string path, string pattern, Type fileType);
+        Result SearchFiles(string device, string path, string pattern, Type fileType = Type.file);
         Result ListDirecotryVerbose(string device, string path);
-        Result SearchFilesVerbose(string device, string path, string pattern, Type fileType);
+        Result SearchFilesVerbose(string device, string path, string pattern, Type fileType = Type.file);
         Result CopyFileFromDevice(string device, string devivePath, string pcPath);
         string[] Devices { get; }
     }
@@ -203,7 +203,7 @@ namespace AAF.Library.Extracter
             try
             {
                 result.filesName = new List<string>();
-                foreach (string file in AdbHelper.SearchFiles(device, pattern, path, (char)fileType))
+                foreach (string file in AdbHelper.SearchFiles(device, path, pattern, (char)fileType))
                     result.filesName.Add(file);
                 result.success = true;
             }
