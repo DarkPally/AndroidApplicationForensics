@@ -1,0 +1,23 @@
+{
+  "Name": "com.mitv.tvhome",
+  "Desc": "小米盒子",
+  "Items": [
+    {
+      "Name": "Phone",
+      "Desc": "登录手机号",
+      "RelativePath": "shared_prefs",
+      "FileName": "settings.xml",
+      "SourceType": 1,
+      "DataPath": "<string name=\"phone\">(?<phone>\\d+)</string>"
+    },
+    {
+      "Name": "UserID",
+      "Desc": "登录用户名",
+      "RelativePath": "shared_prefs",
+      "FileName": "settings.xml",
+      "SourceType": 1,
+      "DataPath": "name=\"(?<name>.*?)_lastActiveProductCheckTime\""
+    },
+  ]
+}
+	
