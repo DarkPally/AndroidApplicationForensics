@@ -18,6 +18,14 @@
       "SourceType": 1,
       "DataPath": "name=\"(?<name>.*?)_lastActiveProductCheckTime\""
     },
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "video.db",
+      "SourceType": 4,
+      "DataPath": "play_record"
+    },
   ]
 }
 	

@@ -188,8 +188,4 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 *.dll
-.vs/AndroidApplicationForensics/v15/sqlite3/storage.ide
-.vs/AndroidApplicationForensics/v15/sqlite3/storage.ide
-.vs/AndroidApplicationForensics/v15/sqlite3/storage.ide
-*.ide
-.vs/AndroidApplicationForensics/v15/sqlite3/storage.ide
+.vs/

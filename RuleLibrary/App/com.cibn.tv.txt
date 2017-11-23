@@ -1,0 +1,14 @@
+{
+  "Name": "com.cibn.tv",
+  "Desc": "酷喵影视",
+  "Items": [
+    {
+      "Name": "Histroy",
+      "Desc": "观看历史",
+      "RelativePath": "databases",
+      "FileName": "yingshi.db",
+      "SourceType": 4,
+      "DataPath": "lastplay"
+    }
+  ]
+}
